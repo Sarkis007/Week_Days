@@ -20,31 +20,46 @@ class Week:
         print "----------"
 
     def append(self, newdata):
-        temp = self.__head
-        while temp.next is not None:
-            temp = temp.next
-
         newDay = WeekDay(newdata)
-        temp.next = newDay
+        if self.__head is None:
+            self.__head = newDay
+        else:
+            temp = self.__head
+            while temp.next is not None:
+                temp = temp.next
+
+
+            temp.next = newDay
 
     def addAtBegining(self, newdata):
         newDay = WeekDay(newdata)
 
-# Update the new nodes next val to existing node
         newDay.next = self.__head
         self.__head = newDay
+
+    def reverse(self):
+        prev = None
+        temp = self.__head
+        while (temp is not None):
+            next = temp.next
+
+            temp.next = prev
+            prev = temp
+
+            temp = next
+        self.__head = prev
 
 def main():
     my_week = Week()
 
-    my_week.setHead("Mon")
-
+    my_week.append("Mon")
     my_week.append("Tue")
     my_week.append("Wed")
     my_week.append("Thr")
     my_week.append("Fri")
     my_week.append("Sat")
-
-    my_week.addAtBegining("Sun")
-
+    my_week.append("Sun")
+    my_week.reverse()
     my_week.display()
+
+main()
