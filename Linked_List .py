@@ -79,6 +79,7 @@ def main():
     my_week.append("Sun")
     my_week.appendAfter("Wed", "Test")
     my_week.delete("Test")
+    my_week.reverse()
     my_week.display()
 
 main()
