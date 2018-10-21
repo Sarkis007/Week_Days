@@ -7,10 +7,12 @@ class Week:
     def __init__(self):
         self.__head = None
 
-    def setHead(self, newdata):
-        self.__head = WeekDay(newdata)
+    def find(self, data):
+        temp = self.__head
+        while temp.data is not data:
+            temp = temp.next
+        return temp
 
-# Print the linked list
     def display(self):
         printval = self.__head
         while printval is not None:
@@ -37,6 +39,23 @@ class Week:
         newDay.next = self.__head
         self.__head = newDay
 
+    def appendAfter(self, prevDay, newDay):
+        new_Day = WeekDay(newDay)
+        prev_Day = self.find(prevDay)
+
+        if prev_Day is None:
+            print("This Day doesn't exist in the list")
+
+
+        new_Day.next = prev_Day.next
+        prev_Day.next = new_Day
+
+    def delete(self, Day):
+        temp = self.__head
+        while temp is not None and temp.next.data != Day:
+            temp = temp.next
+        temp.next = temp.next.next
+
     def reverse(self):
         prev = None
         temp = self.__head
@@ -51,7 +70,6 @@ class Week:
 
 def main():
     my_week = Week()
-
     my_week.append("Mon")
     my_week.append("Tue")
     my_week.append("Wed")
@@ -59,7 +77,8 @@ def main():
     my_week.append("Fri")
     my_week.append("Sat")
     my_week.append("Sun")
-    my_week.reverse()
+    my_week.appendAfter("Wed", "Test")
+    my_week.delete("Test")
     my_week.display()
 
 main()
